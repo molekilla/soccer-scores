@@ -67,10 +67,10 @@ contract SoccerScores {
         require(msg.sender == owner);
         
         // cannot be settled
-        require(
-            id != 0 &&
-            gameMatch[id].settled == true
-        );
+        // require(
+        //     id != 0 &&
+        //     gameMatch[id].settled == true
+        // );
         
         gameMatch[id] = GameMatch({
             settled: false,
