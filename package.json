@@ -1,0 +1,28 @@
+{
+  "name": "soccer-scores",
+  "version": "1.0.0",
+  "description": "Soccer Scores demo for Solido tutorial",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "truffle-hdwallet-provider": "^1.0.9",
+    "web3": "^1.0.0-beta.37"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/molekilla/soccer-scores.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/molekilla/soccer-scores/issues"
+  },
+  "homepage": "https://github.com/molekilla/soccer-scores#readme"
+}
