@@ -39,6 +39,8 @@ contract SoccerScores {
     // Counter
     mapping (bytes32 => uint256) public scoreCount;
 
+    uint256 public matchCount;
+
     event LogStartMatch(bytes32 indexed id, bytes32 indexed kickOffTeam);
 
     event LogPlayerScore(bytes32 indexed player, uint256 goal, uint256 assist);
@@ -64,13 +66,12 @@ contract SoccerScores {
     )
     public
     returns (bool) {
-        require(msg.sender == owner);
+        require(msg.sender == owner, "INVALID_OWNER");
         
         // cannot be settled
-        // require(
-        //     id != 0 &&
-        //     gameMatch[id].settled == true
-        // );
+        require(
+             id != 0 && gameMatch[id].settled == false
+        , "INVALID_GAME_ID");
         
         gameMatch[id] = GameMatch({
             settled: false,
@@ -79,9 +80,11 @@ contract SoccerScores {
             homeTeam: teamId,
             venue: venueId
         });
+
+        matchCount++;
         
         emit LogStartMatch(
-            id, 
+            id,
             kickOffTeamId
         );
         return true;
@@ -91,20 +94,23 @@ contract SoccerScores {
     function score(
         bytes32 id,
         bytes32 team,
+        bytes32 visitor,
         bytes32 player,
         uint8 goals,
         uint256 scoreAt
     )
     public
     returns (bool) {
-        require(msg.sender == owner);
+        require(msg.sender == owner, "INVALID_OWNER");
         
         // cannot be settled
         require(
-            id != 0 &&
-            gameMatch[id].settled == true
-        );
-        
+             id != 0 && gameMatch[id].settled == false
+        , "INVALID_GAME_ID");
+
+        // game match must exists
+        require(gameMatch[id].homeTeam == team && gameMatch[id].visitorTeam == visitor, "INVALID_MATCH");
+
         uint256 _scoreCounter = scoreCount[id];
         scores[id][_scoreCounter] = GameScore({
             team: team,
