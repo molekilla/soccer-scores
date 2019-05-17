@@ -42,7 +42,7 @@ module.exports = class ContractImportBuilder {
             this.contractImport[name] = {
                 // raw: require(`./build/contracts/${abi.contractName}.json`),
                 raw: {
-                    abi: abi
+                    abi: abi.abi
                 },
                 address: {
                     ...addr
